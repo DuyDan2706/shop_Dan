@@ -4,7 +4,7 @@ import LoginPage from 'src/views/pages/login'
 type TProps = {}
 
 const Login: NextPage<TProps> = () => {
-  console.log('Dan')
+  // eslint-disable-next-line newline-before-return
   return <LoginPage />
 }
 

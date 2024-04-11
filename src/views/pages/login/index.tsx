@@ -25,12 +25,20 @@ import LoginDark from '/public/images/login-dark.png'
 import LoginLight from '/public/images/login-light.png'
 import Link from 'next/link'
 
+// hooks
+import { useAuth } from 'src/hooks/useAuth'
+
 type TProps = {}
 
 const LoginPage: NextPage<TProps> = () => {
   // state
   const [showPassword, setShowPassword] = useState(false)
+
   const [isRemember, setIsRemember] = useState(true)
+
+  // context
+
+  const { login } = useAuth()
 
   // theme
   const theme = useTheme()
@@ -53,6 +61,9 @@ const LoginPage: NextPage<TProps> = () => {
     resolver: yupResolver(schema)
   })
   const onsubmit = (data: { email: string; password: string }) => {
+    if (!Object.keys(errors).length) {
+      login({ ...data, rememberMe: isRemember })
+    }
     console.log(data)
   }
 
@@ -219,7 +230,7 @@ const LoginPage: NextPage<TProps> = () => {
                   xmlns='http://www.w3.org/2000/svg'
                   aria-hidden='true'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'
@@ -236,7 +247,7 @@ const LoginPage: NextPage<TProps> = () => {
                   xmlns='http://www.w3.org/2000/svg'
                   aria-hidden='true'
                   role='img'
-                  font-size='1.375rem'
+                  fontSize='1.375rem'
                   className='iconify iconify--mdi'
                   width='1em'
                   height='1em'
