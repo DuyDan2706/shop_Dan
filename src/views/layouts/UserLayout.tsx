@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { styled } from '@mui/material/styles'
+
 import CssBaseline from '@mui/material/CssBaseline'
-import MuiDrawer from '@mui/material/Drawer'
+
 import Box from '@mui/material/Box'
 
 import Toolbar from '@mui/material/Toolbar'
@@ -12,16 +12,13 @@ import { NextPage } from 'next'
 import VerticalLayout from './VerticalLayout'
 import HorizontalLayout from './HorizontalLayout'
 
-
 type TProps = {
   children: React.ReactNode
 }
 
-
-
 // TODO remove, this demo shouldn't need to reset the theme.
 
-const Dashboard: NextPage<TProps> = ({children}) => {
+const Dashboard: NextPage<TProps> = ({ children }) => {
   const [open, setOpen] = React.useState(true)
   const toggleDrawer = () => {
     setOpen(!open)
@@ -30,8 +27,8 @@ const Dashboard: NextPage<TProps> = ({children}) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-     <VerticalLayout toggleDrawer={toggleDrawer} open={open} /> 
-    <HorizontalLayout toggleDrawer={toggleDrawer} open={open}/>
+      <VerticalLayout toggleDrawer={toggleDrawer} open={open} />
+      <HorizontalLayout toggleDrawer={toggleDrawer} open={open} />
       <Box
         component='main'
         sx={{
@@ -44,7 +41,7 @@ const Dashboard: NextPage<TProps> = ({children}) => {
       >
         <Toolbar />
         <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
-    {children}
+          {children}
         </Container>
       </Box>
     </Box>
