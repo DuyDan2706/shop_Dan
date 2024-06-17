@@ -9,15 +9,15 @@ import Typography from '@mui/material/Typography'
 
 import IconButton from '@mui/material/IconButton'
 import Badge from '@mui/material/Badge'
-
-
 import { NextPage } from 'next'
+import MenuIcon from '@mui/icons-material/Menu'
+import NotificationsIcon from '@mui/icons-material/Notifications'
 
 const drawerWidth: number = 240
 
 type TProps = {
-    open?: boolean
-    toggleDrawer?: () => void
+  open?: boolean
+  toggleDrawer?: () => void
 }
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean
@@ -27,6 +27,7 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: prop => prop !== 'open'
 })<AppBarProps>(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
+  backgroundColor: theme.palette.customColors.main,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen
@@ -41,11 +42,9 @@ const AppBar = styled(MuiAppBar, {
   })
 }))
 
-
 // TODO remove, this demo shouldn't need to reset the theme.
 
-const HorizontalLayout: NextPage<TProps> = ({open,toggleDrawer}) => {
- 
+const HorizontalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <AppBar position='absolute' open={open}>
@@ -63,16 +62,20 @@ const HorizontalLayout: NextPage<TProps> = ({open,toggleDrawer}) => {
               marginRight: '36px',
               ...(open && { display: 'none' })
             }}
-          ></IconButton>
+          >
+            {/* <IconifyIcon icon = "ic:outline-menu"/> */}
+            <MenuIcon />
+          </IconButton>
           <Typography component='h1' variant='h6' color='inherit' noWrap sx={{ flexGrow: 1 }}>
             Dashboard
           </Typography>
           <IconButton color='inherit'>
-            <Badge badgeContent={4} color='secondary'></Badge>
+            <Badge badgeContent={4} color='secondary'>
+              <NotificationsIcon />
+            </Badge>
           </IconButton>
         </Toolbar>
       </AppBar>
- 
     </Box>
   )
 }
