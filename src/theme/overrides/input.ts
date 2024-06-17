@@ -47,7 +47,7 @@ const input = () => {
         })
       }
     },
-    // MuiOutlinedInput: {
+   
     //    styleOverrides: {
     //       root: ({ theme }: OwnerStateThemeType) => ({
     //          "&:not(.MuiInputBase-sizeSmall)": {

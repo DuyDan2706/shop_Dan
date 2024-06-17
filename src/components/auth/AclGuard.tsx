@@ -13,7 +13,9 @@ interface AclGuardProps {
 
 const AclGuard = (props: AclGuardProps) => {
   // ** Props
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { aclAbilities, children, guestGuard = false, authGuard = true } = props
+  // eslint-disable-next-line newline-before-return
   return <>{children}</>
 }
 

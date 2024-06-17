@@ -39,7 +39,6 @@ const LoginPage: NextPage<TProps> = () => {
   // context
 
   const { login } = useAuth()
-  // theme
   const theme = useTheme()
 
   const schema = yup.object().shape({

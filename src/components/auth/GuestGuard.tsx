@@ -7,7 +7,7 @@ interface GuestGuardProps {
 }
 
 const GuestGuard = (props: GuestGuardProps) => {
-  const { children, fallback } = props
+  const { children } = props
 
   return <>{children}</>
 }
