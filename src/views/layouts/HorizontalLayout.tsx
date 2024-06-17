@@ -1,33 +1,41 @@
+// ** React
 import * as React from 'react'
-import { styled } from '@mui/material/styles'
 
-import Box from '@mui/material/Box'
+// ** Next
+import { NextPage } from 'next'
+
+// ** Mui
+import { styled } from '@mui/material/styles'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
-
 import Typography from '@mui/material/Typography'
-
 import IconButton from '@mui/material/IconButton'
-import Badge from '@mui/material/Badge'
-import { NextPage } from 'next'
-import MenuIcon from '@mui/icons-material/Menu'
-import NotificationsIcon from '@mui/icons-material/Notifications'
+
+// components
+import Icon from 'src/components/Icon'
+
+// ** Hooks
+import { Button } from '@mui/material'
 
 const drawerWidth: number = 240
 
-type TProps = {
-  open?: boolean
-  toggleDrawer?: () => void
-}
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean
+}
+
+type TProps = {
+  open: boolean
+  toggleDrawer: () => void
+  isHideMenu?: boolean
 }
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: prop => prop !== 'open'
 })<AppBarProps>(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  backgroundColor: theme.palette.customColors.main,
+  backgroundColor:
+    theme.palette.mode === 'light' ? theme.palette.customColors.lightPaperBg : theme.palette.customColors.darkPaperBg,
+  color: theme.palette.text.primary,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen
@@ -42,17 +50,17 @@ const AppBar = styled(MuiAppBar, {
   })
 }))
 
-// TODO remove, this demo shouldn't need to reset the theme.
+const HorizontalLayout: NextPage<TProps> = ({ open, toggleDrawer, isHideMenu }) => {
 
-const HorizontalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
   return (
-    <Box sx={{ display: 'flex' }}>
-      <AppBar position='absolute' open={open}>
-        <Toolbar
-          sx={{
-            pr: '24px' // keep right padding when drawer closed
-          }}
-        >
+    <AppBar position='absolute' open={open}>
+      <Toolbar
+        sx={{
+          pr: '30px', // keep right padding when drawer closed,
+          margin: '0 20px'
+        }}
+      >
+        {!isHideMenu && (
           <IconButton
             edge='start'
             color='inherit'
@@ -63,20 +71,19 @@ const HorizontalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
               ...(open && { display: 'none' })
             }}
           >
-            {/* <IconifyIcon icon = "ic:outline-menu"/> */}
-            <MenuIcon />
+            <Icon icon='ic:round-menu' />
           </IconButton>
-          <Typography component='h1' variant='h6' color='inherit' noWrap sx={{ flexGrow: 1 }}>
-            Dashboard
-          </Typography>
-          <IconButton color='inherit'>
-            <Badge badgeContent={4} color='secondary'>
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </Box>
+        )}
+        <Typography component='h1' variant='h6' color='inherit' noWrap sx={{ flexGrow: 1 }}>
+          Dashboard
+        </Typography>
+
+        <Button variant='contained' sx={{ ml: 2, width: 'auto' }}>
+          Sign In
+        </Button>
+      </Toolbar>
+    </AppBar>
   )
 }
+
 export default HorizontalLayout
