@@ -1,4 +1,4 @@
-// ** Icon Imports
+// src/components/Icon.tsx or Icon.js
 import { Icon, IconProps } from '@iconify/react'
 
 const IconifyIcon = ({ icon, ...rest }: IconProps) => {
