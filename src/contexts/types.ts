@@ -10,8 +10,9 @@ export type UserDataType = {
   id: number
   role: string
   email: string
-  fullName: string
-  username: string
+  firstName: string
+  lastName: string
+  middlename: string
   password: string
   avatar?: string | null
 }

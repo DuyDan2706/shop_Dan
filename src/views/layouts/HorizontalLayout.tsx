@@ -16,6 +16,7 @@ import Icon from 'src/components/Icon'
 
 // ** Hooks
 import { Button } from '@mui/material'
+import UserDropdown from 'src/components/user-dropdown'
 
 const drawerWidth: number = 240
 
@@ -51,7 +52,6 @@ const AppBar = styled(MuiAppBar, {
 }))
 
 const HorizontalLayout: NextPage<TProps> = ({ open, toggleDrawer, isHideMenu }) => {
-
   return (
     <AppBar position='absolute' open={open}>
       <Toolbar
@@ -77,7 +77,7 @@ const HorizontalLayout: NextPage<TProps> = ({ open, toggleDrawer, isHideMenu }) 
         <Typography component='h1' variant='h6' color='inherit' noWrap sx={{ flexGrow: 1 }}>
           Dashboard
         </Typography>
-
+        <UserDropdown />
         <Button variant='contained' sx={{ ml: 2, width: 'auto' }}>
           Sign In
         </Button>
