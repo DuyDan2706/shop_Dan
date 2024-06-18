@@ -3,13 +3,15 @@ import { styled } from '@mui/material/styles'
 
 import MuiDrawer from '@mui/material/Drawer'
 import Toolbar from '@mui/material/Toolbar'
-import List from '@mui/material/List'
 
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 
-import { mainListItems, secondaryListItems } from './listItems'
 import { NextPage } from 'next'
+import ListVerticalLayout from './ListVerticalLayout'
+
+//icon
+import MenuIcon from '@mui/icons-material/Menu';
 
 const drawerWidth: number = 240
 
@@ -45,6 +47,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: prop => prop !== 'open' })
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const VerticalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
+
+
   return (
     <Drawer variant='permanent' open={open}>
       <Toolbar
@@ -55,14 +59,12 @@ const VerticalLayout: NextPage<TProps> = ({ open, toggleDrawer }) => {
           px: [1]
         }}
       >
-        <IconButton onClick={toggleDrawer}></IconButton>
+        <IconButton onClick={toggleDrawer}>
+          <MenuIcon />
+        </IconButton>
       </Toolbar>
       <Divider />
-      <List component='nav'>
-        {mainListItems}
-        <Divider sx={{ my: 1 }} />
-        {secondaryListItems}
-      </List>
+    <ListVerticalLayout />
     </Drawer>
   )
 }
