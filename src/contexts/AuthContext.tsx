@@ -15,6 +15,8 @@ import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './ty
 import { loginAuth } from 'src/services/auth'
 import axios from 'axios'
 import { CONFIG_API } from 'src/configs/api'
+import { clearLocalUserData, setLocalUserData } from 'src/helpers/storage'
+
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -48,21 +50,18 @@ const AuthProvider = ({ children }: Props) => {
         await axios
           .get(CONFIG_API.AUTH.AUTH_ME, {
             headers: {
-              Authorization: storedToken
+              Authorization: `Bearer ${storedToken}`
             }
           })
           .then(async response => {
-            console.log("dan", response.data.userData)
             setLoading(false)
-            setUser({ ...response.data.userData })
+            setUser({ ...response.data.data })
           })
           .catch(() => {
-            localStorage.removeItem('userData')
-            localStorage.removeItem('refreshToken')
-            localStorage.removeItem('accessToken')
+            clearLocalUserData()
             setUser(null)
             setLoading(false)
-            if (!router.pathname.includes('login')) {
+            if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
               router.replace('/login')
             }
           })
@@ -79,13 +78,15 @@ const AuthProvider = ({ children }: Props) => {
     loginAuth({ email: params.email, password: params.password })
       .then(async response => {
         params.rememberMe
-          ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.access_token)
+          ? setLocalUserData(
+              JSON.stringify(response.data.userData),
+              response.data.accessToken,
+              response.data.refreshToken
+            )
           : null
         const returnUrl = router.query.returnUrl
-        console.log('🚀 ~ handleLogin ~ returnUrl:', response)
 
         setUser({ ...response.data.userData })
-        params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.user)) : null
 
         const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
 
@@ -99,8 +100,7 @@ const AuthProvider = ({ children }: Props) => {
 
   const handleLogout = () => {
     setUser(null)
-    window.localStorage.removeItem('userData')
-    window.localStorage.removeItem(authConfig.storageTokenKeyName)
+    clearLocalUserData()
     router.push('/login')
   }
 

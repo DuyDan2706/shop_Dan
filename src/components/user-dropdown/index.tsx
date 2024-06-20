@@ -90,7 +90,7 @@ const UserDropdown = (props: TProps) => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          {user?.firstName} {user?.lastName} {user?.middlename}
+          {user?.email} {user?.lastName} {user?.middlename}
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <Avatar /> Profile
